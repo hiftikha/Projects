@@ -1,0 +1,10 @@
+Address      Machine code     Operands       Instructions
+00000500           33FC           4F           MOVE            #79,$00002000
+00000500           4E41           0           TRAP            #1 
+00000500           33C0           0           MOVE            DO,$00020004 
+00000500           3039           0           MOVE            $00002000,DO 
+00000500           D079           0           ADD            $00002004,DO 
+00000500           33C0           0           MOVE            DO,$00002002 
+00000500           0679           12           ADDI            #18,$00002002 
+00000500           4E42           0           TRAP            #2 
+00000500           4E40           0           TRAP            #0 

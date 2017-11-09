@@ -1,0 +1,73 @@
+; MeanVariance.asm - Haroon Iftikhar.
+
+
+
+
+include Irvine32.inc
+include Macros.inc
+
+.data
+RAW dWORD 10,12,8,17,9,22,18,11,23,7,30,22,19,6,7
+MEAN dword 0
+VARIANCE dword 0
+
+
+.code
+ResetIter proc
+	mov edi,OFFSET RAW
+	mov ecx,LENGTHOF RAW
+	mov eax,0
+	ret
+ResetIter endp
+main proc
+	call ResetIter
+L1:
+	add eax,[edi]
+	add edi,TYPE RAW
+	loop L1
+
+	mov MEAN,eax
+	mov eax,0
+	mov ecx,LENGTHOF RAW
+	mov edx,0
+	mov eax,MEAN
+	div ecx
+	mov MEAN,eax
+	call ResetIter
+	mov ebx,0
+L2:
+	mov eax, [edi]
+		sub eax, MEAN
+		imul eax, eax
+		add ebx, eax
+		add edi, TYPE RAW
+		loop L2
+
+		mov VARIANCE, ebx
+		mov eax, 0
+		mov ecx, LENGTHOF RAW
+		mov edx, 0
+		mov eax, VARIANCE
+		div ecx
+		mov VARIANCE, eax
+
+		mWrite "MEAN "
+		mov eax,MEAN
+		call WriteDec
+		call Crlf
+		mWrite "VARIANCE "
+		mov eax, VARIANCE
+		call WriteDec
+		call Crlf
+		call WaitMsg
+
+
+
+
+
+
+
+		 invoke ExitProcess, 0
+		
+main endp
+end main
