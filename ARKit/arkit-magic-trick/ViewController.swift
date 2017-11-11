@@ -19,6 +19,7 @@ class ViewController: UIViewController, ARSCNViewDelegate, ARSessionDelegate {
     var ballName: String = ""
     static let velocity : Float = 4
     var visibility = true
+    var ballsThrown: [SCNNode] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -32,7 +33,9 @@ class ViewController: UIViewController, ARSCNViewDelegate, ARSessionDelegate {
         
         // Set the scene to the view
         sceneView.scene = SCNScene()
-        //sceneView.debugOptions = [.showPhysicsShapes]
+        sceneView.debugOptions = [.showPhysicsShapes]
+        sceneView.debugOptions = [.showCreases]
+        //sceneView.debugOptions = [.showBoundingBoxes]
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -61,13 +64,33 @@ class ViewController: UIViewController, ARSCNViewDelegate, ARSessionDelegate {
         // Release any cached data, images, etc that aren't in use.
     }
 
-    @IBAction func onViewPinched(_ sender: Any) {
-        NSLog("Pinch is working!")
+    private func createNewBall() {
+        NSLog("New Ball is working!")
+        
+        //let ball = SCNSphere(radius: 0.02)
+        let ballNode = magicBall.node()
+        ballNode.name = UUID().uuidString
+        ballName = ballNode.name!
+        ballsNode?.addChildNode(ballNode)
+        
+        print("The name of the ball's node is " + ballName)
+        
+        let camera = sceneView.session.currentFrame?.camera
+        let cameraTransform = camera?.transform
+        ballNode.simdTransform = cameraTransform!
+        
     }
+    
     @IBAction func onThrowBall(_ sender: Any) {
+        createNewBall()
+        
         NSLog("Ball Throw is working!")
+        if !(ballName == "") {
         let ballToThrow = ballsNode?.childNode(withName: ballName, recursively: true)
-        //let forceDirection = SCNVector3Make(0, 0, -0.5)
+        ballsThrown.append(ballToThrow!)
+            print("The ball's X is?: ", ballToThrow?.worldPosition.x)
+            print("The ball's Y is?: ", ballToThrow?.worldPosition.y)
+            print("The ball's Z is?: ", ballToThrow?.worldPosition.z)
         
         let currentFrame = sceneView.session.currentFrame!
         let n = SCNNode()
@@ -90,61 +113,52 @@ class ViewController: UIViewController, ARSCNViewDelegate, ARSessionDelegate {
         //ballToThrow?.physicsBody?.isAffectedByGravity = true
         //for ballNode in ballToThrow {
         ballToThrow?.physicsBody?.applyForce(direction, asImpulse: true)
-        ballToThrow?.physicsBody?.isAffectedByGravity = true
         //ballToThrow?.removeFromParentNode()
-        
-    }
-    @IBAction func onNewBall(_ sender: Any) {
-        NSLog("New Ball is working!")
-        let ball = SCNSphere(radius: 0.02)
-        let ballNode = SCNNode(geometry: ball)
-        ballNode.name = UUID().uuidString
-        ballName = ballNode.name!
-        print("The name of the ball's node is " + ballName)
-        ballNode.physicsBody = SCNPhysicsBody(type: .dynamic, shape: nil)
-        
-        let camera = sceneView.session.currentFrame?.camera
-        let cameraTransform = camera?.transform
-        ballNode.simdTransform = cameraTransform!
-        //ballNode.transform = SCNMatrix4MakeTranslation(0, 0, 2)
-        ballNode.physicsBody?.allowsResting = true
-        ballNode.physicsBody?.mass = 2
-        ballNode.physicsBody?.restitution = 1
-        ballNode.physicsBody?.damping = 0.1
-        ballNode.physicsBody?.friction = 5
-        ballNode.physicsBody?.contactTestBitMask = 1
-        ballNode.physicsBody?.isAffectedByGravity = false
-        ballsNode?.addChildNode(ballNode)
+        }
     }
     
     @IBAction func onMagicTrick(_ sender: Any) {
         NSLog("Magic Trick is working!")
-        let magicBound = sceneView?.scene.rootNode.childNode(withName: "magicBounds", recursively: true)
-        let minVector = magicBound?.boundingBox.min
-        let maxVector = magicBound?.boundingBox.max
-        //let ball = sceneView?.scene.rootNode
-        let ballsToMagic = ballsNode?.childNodes
+        let magicBound = sceneView.scene.rootNode.childNode(withName: "magicBounds", recursively: true)
         
+        let magicBoundWorldPosition = magicBound!.worldPosition
+        let (tubeMin, tubeMax): (SCNVector3, SCNVector3) = magicBound!.boundingBox
         
-        for node in ballsToMagic! {
-            if (node.position.x < (maxVector?.x)! && node.position.x > (minVector?.x)!){
-                if (node.position.y < (maxVector?.y)! && node.position.y > (minVector?.y)!){
-                    if (node.position.z < (maxVector?.z)! && node.position.z > (minVector?.z)!){
-                        if (visibility == true){
-                             print("The number of balls are: ", ballsToMagic?.count)
-                            print("The name of node is: ", node.name)
-                            node.opacity = 0.0
-                            visibility = false
-                            }
-    
-                        if (visibility == false) {
-                            node.opacity = 1.0
-                            print("The number of balls are: ", ballsToMagic?.count)
-                            print("The name of node is: ", node.name)
-                            visibility = true
-                        }
-                        
-                    }
+        let minX = magicBoundWorldPosition.x + tubeMin.x
+        let minY = magicBoundWorldPosition.y + tubeMin.y
+        let minZ = magicBoundWorldPosition.z + tubeMin.z
+        
+        print("MIN", tubeMin.x, tubeMin.y, tubeMin.z)
+        print("MAX", tubeMax.x, tubeMax.y, tubeMax.z)
+        
+        let maxX = magicBoundWorldPosition.x + tubeMax.x
+        let maxY = magicBoundWorldPosition.y + tubeMax.y
+        let maxZ = magicBoundWorldPosition.z + tubeMax.z
+        
+        print("The magicBounds X are?: ", magicBoundWorldPosition.x)
+        print("The magicBounds Y are?: ", magicBoundWorldPosition.y)
+        print("The magicBounds Z are?: ", magicBoundWorldPosition.z)
+        
+        for ball in ballsThrown{
+            let ballPosition = ball.presentation.worldPosition
+            let MagicTrickCondition = ballPosition.x <= maxX && ballPosition.x >= minX && ballPosition.y <= maxY && ballPosition.y >= minY && ballPosition.z <= maxZ && ballPosition.z >= minZ
+            
+            print("The boundaries of the hat's X are: ", minX,", ", maxX)
+            print("The boundaries of the hat's Y are: ", minY,", ", maxY)
+            print("The boundaries of the hat's Z are: ", minZ,", ", maxZ)
+            
+            print("The ball's X is?: ", ballPosition.x)
+            print("The ball's Y is?: ", ballPosition.y)
+            print("The ball's Z is?: ", ballPosition.z)
+            
+            print("The ball is in the hat?: ", MagicTrickCondition)
+            if(MagicTrickCondition){
+                if(!ball.isHidden){
+                ball.isHidden = true
+                print("The ball has been hidden: ", ball.name!)
+                }
+                else if(ball.isHidden){
+                ball.isHidden = false
                 }
             }
         }
@@ -187,20 +201,27 @@ class ViewController: UIViewController, ARSCNViewDelegate, ARSessionDelegate {
         // Add light node to root node
         sceneView.pointOfView?.addChildNode(lightNode)
         
+        let hatMaterial = SCNMaterial()
+        hatMaterial.diffuse.contents = UIColor.lightGray
+        
         if(!hatPlaced && anchor is ARPlaneAnchor){
             let hat = SCNTube(innerRadius: 0.15, outerRadius: 0.16, height: 0.2)
+            hat.firstMaterial = hatMaterial
             //hat.firstMaterial?.diffuse.contents = UIColor.black
             let hatNode = SCNNode(geometry: hat)
+            hatNode.name = "magicBounds"
             //hatNode.physicsBody = SCNPhysicsBody(type: .static, shape: shape)
             
             
             let cap = SCNTube(innerRadius: 0.15, outerRadius: 0.25, height: 0.01)
+            cap.firstMaterial = hatMaterial
             //cap.firstMaterial?.diffuse.contents = UIColor.black
             let capNode = SCNNode(geometry: cap)
             //capNode.physicsBody = SCNPhysicsBody(type: .static, shape: nil)
             capNode.position = yTransformation(point: hatNode.position, distance: 0.1)
            
             let bottom = SCNCylinder(radius: 0.15, height: 0.01)
+            bottom.firstMaterial = hatMaterial
             //bottom.firstMaterial?.diffuse.contents = UIColor.black
             let bottomNode = SCNNode(geometry: bottom)
             //bottomNode.physicsBody = SCNPhysicsBody(type: .static, shape: nil)
@@ -211,7 +232,7 @@ class ViewController: UIViewController, ARSCNViewDelegate, ARSessionDelegate {
             floor.reflectivity = 0.10
             floor.firstMaterial?.colorBufferWriteMask = SCNColorMask(rawValue: 0)
             let floorNode = SCNNode(geometry: floor)
-            floorNode.physicsBody?.categoryBitMask = 5
+            floorNode.physicsBody?.categoryBitMask = 4
             floorNode.physicsBody?.collisionBitMask = 1
             floorNode.physicsBody = SCNPhysicsBody(type: .static, shape: nil)
             floorNode.simdTransform = anchor.transform
@@ -219,7 +240,6 @@ class ViewController: UIViewController, ARSCNViewDelegate, ARSessionDelegate {
             // Add physics node to plane node
            
             planeNode = SCNNode()
-            planeNode?.name = "magicBounds"
             planeNode?.addChildNode(hatNode)
             planeNode?.addChildNode(capNode)
             planeNode?.addChildNode(bottomNode)
@@ -234,18 +254,6 @@ class ViewController: UIViewController, ARSCNViewDelegate, ARSessionDelegate {
         }
         return nil
     }
-    
-    
-    // MARK: - ARSCNViewDelegate
-    
-/*
-    // Override to create and configure nodes for anchors added to the view's session.
-    func renderer(_ renderer: SCNSceneRenderer, nodeFor anchor: ARAnchor) -> SCNNode? {
-        let node = SCNNode()
-     
-        return node
-    }
-*/
     
     func session(_ session: ARSession, didFailWithError error: Error) {
         // Present an error message to the user
