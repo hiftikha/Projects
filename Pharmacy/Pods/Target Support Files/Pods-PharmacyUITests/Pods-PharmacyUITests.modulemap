@@ -1,0 +1,6 @@
+framework module Pods_PharmacyUITests {
+  umbrella header "Pods-PharmacyUITests-umbrella.h"
+
+  export *
+  module * { export * }
+}

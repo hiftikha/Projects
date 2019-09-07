@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#000000</color>
+    <color name="colorPrimaryDark">#000000</color>
+    <color name="colorAccent">#FF4081</color>
+    <color name="colorWhite">#FFF</color>
+    <color name="asanaColor">#e76478</color>
+    <color name="skyBlue">#a40eb0ea</color>
+    <color name="colorGrey">#ea26272b</color>
+
+</resources>

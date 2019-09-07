@@ -1,9 +1,4 @@
 //
-//  main.cpp
-//  DesignPatternsProject1
-//
-//  Created by Haroon Iftikhar on 10/16/17.
-//  Copyright © 2017 Haroon Iftikhar. All rights reserved.
 //
 
 #include <iostream>
@@ -228,12 +223,12 @@ Word17Factory *Word17Factory::secondInstance = nullptr;
 class Client {
 private:
     Factory *factory;
-    
+
 public:
     Client(Factory *f) {
         factory = f;
     }
-    
+
     void draw() {
         if(factory)
         {
@@ -253,14 +248,14 @@ int main() {
     WordReader.open("data.txt");
     string version;
     Factory *factory = nullptr;
-    
+
     if (!WordReader) {
         cout << "Unable to open file";
     }
-    
+
     while (!WordReader.eof()) {
         getline(WordReader,version);
-        
+
         if(version == "Word90"){
             factory = Word90Factory::getInstance();
         }
@@ -276,8 +271,8 @@ int main() {
             Client *c = new Client(factory);
             c->draw();
     }
-    
+
     WordReader.close();
-    
+
 
 }

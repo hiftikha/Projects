@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/game"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context=".MainActivity"
+    tools:showIn="@layout/activity_main">
+
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginBottom="80dp"
+        android:text="Player One's turn"
+        android:gravity="center"
+        android:fontFamily="sans-serif-black"
+        android:textSize="30dp"
+        app:layout_constraintBottom_toBottomOf="@id/game"/>
+
+    <GridLayout
+        android:id="@+id/grid3x3"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:columnCount="3"
+        android:rowCount="3"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <android.support.v7.widget.CardView
+            android:id="@+id/row0col0"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_columnWeight="1"
+            android:layout_rowWeight="1"
+            android:layout_margin="@dimen/cardview_compat_inset_shadow"
+            android:layout_gravity="fill"
+            app:cardBackgroundColor="@color/black_overlay">
+
+        </android.support.v7.widget.CardView>
+
+        <android.support.v7.widget.CardView
+            android:id="@+id/row0col1"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_gravity="fill"
+            android:layout_columnWeight="1"
+            android:layout_margin="@dimen/cardview_compat_inset_shadow"
+            android:layout_rowWeight="1"
+            android:clickable="true"
+            app:cardBackgroundColor="@color/black_overlay" />
+
+        <android.support.v7.widget.CardView
+            android:id="@+id/row0col2"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_gravity="fill"
+            android:layout_columnWeight="1"
+            android:layout_margin="@dimen/cardview_compat_inset_shadow"
+            android:layout_rowWeight="1"
+            app:cardBackgroundColor="@color/black_overlay" />
+
+        <android.support.v7.widget.CardView
+            android:id="@+id/row1col0"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_gravity="fill"
+            android:layout_columnWeight="1"
+            android:layout_margin="@dimen/cardview_compat_inset_shadow"
+            android:layout_rowWeight="1"
+            app:cardBackgroundColor="@color/black_overlay" />
+
+        <android.support.v7.widget.CardView
+            android:id="@+id/row1col1"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_gravity="fill"
+            android:layout_columnWeight="1"
+            android:layout_margin="@dimen/cardview_compat_inset_shadow"
+            android:layout_rowWeight="1"
+            app:cardBackgroundColor="@color/black_overlay" />
+
+        <android.support.v7.widget.CardView
+            android:id="@+id/row1col2"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_gravity="fill"
+            android:layout_columnWeight="1"
+            android:layout_margin="@dimen/cardview_compat_inset_shadow"
+            android:layout_rowWeight="1"
+            app:cardBackgroundColor="@color/black_overlay" />
+
+        <android.support.v7.widget.CardView
+            android:id="@+id/row2col0"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_gravity="fill"
+            android:layout_columnWeight="1"
+            android:layout_margin="@dimen/cardview_compat_inset_shadow"
+            android:layout_rowWeight="1"
+            app:cardBackgroundColor="@color/black_overlay" />
+
+        <android.support.v7.widget.CardView
+            android:id="@+id/row2col1"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_gravity="fill"
+            android:layout_columnWeight="1"
+            android:layout_margin="@dimen/cardview_compat_inset_shadow"
+            android:layout_rowWeight="1"
+            app:cardBackgroundColor="@color/black_overlay"
+            android:background="@drawable/shipt_logo" />
+
+        <android.support.v7.widget.CardView
+            android:id="@+id/row2col2"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_gravity="fill"
+            android:layout_columnWeight="1"
+            android:layout_margin="@dimen/cardview_compat_inset_shadow"
+            android:layout_rowWeight="1"
+            app:cardBackgroundColor="@color/black_overlay" />
+
+
+    </GridLayout>
+
+</android.support.constraint.ConstraintLayout>

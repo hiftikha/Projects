@@ -197,13 +197,46 @@ void ResetBCD(int BCD[]){
 
 int main(){
     
+    DecToBinary(8);
+    PrintBinary(Binary);
+    ResetBinary(Binary);
+    cout << endl;
+    DecToBinary(90);
+    PrintBinary(Binary);
+    ResetBinary(Binary);
+    cout << endl;
+    DecToBinary(25);
+    PrintBinary(Binary);
+    ResetBinary(Binary);
+    cout << endl;
+    DecToBinary(16);
+    PrintBinary(Binary);
+    ResetBinary(Binary);
+    cout << endl;
+    DecToBinary(18);
+    PrintBinary(Binary);
+    ResetBinary(Binary);
+    cout << endl;
+    DecToBinary(81);
+    PrintBinary(Binary);
+    ResetBinary(Binary);
+    cout << endl;
+    DecToBinary(24);
+    PrintBinary(Binary);
+    ResetBinary(Binary);
+    cout << endl;
+    DecToBinary(45);
+    PrintBinary(Binary);
+    ResetBinary(Binary);
+    cout << endl;
+    
   //  cout << "Here is your Decimal daddy!" << endl << endl;
     
-    cout << "DECIMAL" << "       " << "BINARY" << "       " << "HEXADECIMAL" << "       " << "BCD" << endl;
+    //cout << "DECIMAL" << "       " << "BINARY" << "       " << "HEXADECIMAL" << "       " << "BCD" << endl;
 
     
     
-    
+    /*
     for (int decimal = 0; decimal <= 255; decimal++) {
       
         cout << decimal;
@@ -224,7 +257,7 @@ int main(){
     cout << endl;
         
     }
-    
+*/
   /*
     DecToBinary(Dec);
     PrintBinary(Binary);

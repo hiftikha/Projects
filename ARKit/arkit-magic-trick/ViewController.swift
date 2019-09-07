@@ -88,9 +88,9 @@ class ViewController: UIViewController, ARSCNViewDelegate, ARSessionDelegate {
         if !(ballName == "") {
         let ballToThrow = ballsNode?.childNode(withName: ballName, recursively: true)
         ballsThrown.append(ballToThrow!)
-            print("The ball's X is?: ", ballToThrow?.worldPosition.x)
-            print("The ball's Y is?: ", ballToThrow?.worldPosition.y)
-            print("The ball's Z is?: ", ballToThrow?.worldPosition.z)
+            print("The ball's X is?: ", ballToThrow?.worldPosition.x as Any)
+            print("The ball's Y is?: ", ballToThrow?.worldPosition.y as Any)
+            print("The ball's Z is?: ", ballToThrow?.worldPosition.z as Any)
         
         let currentFrame = sceneView.session.currentFrame!
         let n = SCNNode()
