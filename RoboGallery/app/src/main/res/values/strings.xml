@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">RoboGallery</string>
+    <string name="delete">Delete</string>
+    <string name="set1">Set 1</string>
+    <string name="set2">Set 2</string>
+    <string name="set3">Set 3</string>
 </resources>

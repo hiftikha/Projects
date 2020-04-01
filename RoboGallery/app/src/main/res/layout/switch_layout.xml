@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="horizontal">
+
+    <Switch
+        android:id="@+id/set1"
+        android:text="@string/set1"
+        android:switchPadding="@dimen/ten_padding"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingEnd="@dimen/ten_padding"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentLeft="true"/>
+
+    <Switch
+        android:id="@+id/set2"
+        android:text="@string/set2"
+        android:switchPadding="@dimen/ten_padding"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingEnd="@dimen/ten_padding"
+        android:layout_toEndOf="@id/set1"
+        android:layout_toRightOf="@id/set1"
+        />
+
+    <Switch
+        android:id="@+id/set3"
+        android:text="@string/set3"
+        android:switchPadding="@dimen/ten_padding"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingEnd="@dimen/ten_padding"
+        android:layout_toEndOf="@id/set2"
+        android:layout_toRightOf="@id/set2"/>
+</RelativeLayout>
