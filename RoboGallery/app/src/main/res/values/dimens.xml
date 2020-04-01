@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="ten_padding">10dp</dimen>
+    <dimen name="fifty_padding">50dp</dimen>
+    <dimen name="twenty_textsize">20sp</dimen>
+    <dimen name="four_corner">4dp</dimen>
+    <dimen name="twenty_corner">20dp</dimen>
+    <dimen name="twenty_padding">20dp</dimen>
+</resources>
