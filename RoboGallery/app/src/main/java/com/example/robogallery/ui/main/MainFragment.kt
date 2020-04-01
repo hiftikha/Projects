@@ -67,6 +67,7 @@ class MainFragment : Fragment() {
                     if (query != null) {
                         searchView.clearFocus()
                         viewModel.addPhoto(query, viewModel.getSet())
+                        binding.gallery.adapter?.notifyItemInserted(0)
                     }
                     return true
                 }
@@ -88,7 +89,7 @@ class MainFragment : Fragment() {
         }
         with(binding) {
             gallery.adapter = roboAdapter
-            gallery.layoutManager = GridLayoutManager(context, 3)
+            gallery.layoutManager = GridLayoutManager(context, 4)
         }
         configureSetSwitches()
     }

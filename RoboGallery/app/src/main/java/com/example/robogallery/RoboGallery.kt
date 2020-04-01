@@ -11,7 +11,7 @@ class RoboGallery(val photoList: MutableList<RoboItem> = mutableListOf(), val ph
     }
 
     fun addPhoto(photo: RoboItem) {
-        photoList.add(photo)
+        photoList.add(0, photo)
         photos.value = photoList
     }
 
